@@ -17,3 +17,8 @@ repos:
         language: system
         types: [dart]
         pass_filenames: false
+      - id: Flutter analyze
+        name: Flutter analyze
+        entry: flutter analyze .
+        language: system
+        pass_filenames: false
