@@ -19,7 +19,8 @@ void main() {
     await tester.pumpWidget(GeneratorPage());
 
     // Verify that our counter starts at 0.
-    var pairWidget = find.descendant(of: find.byType(Card), matching: find.byType(Text));
+    var pairWidget =
+        find.descendant(of: find.byType(Card), matching: find.byType(Text));
     var pair = (pairWidget.evaluate().single.widget as Text).data;
     await tester.tap(find.text('Next'));
     await tester.pumpAndSettle();
