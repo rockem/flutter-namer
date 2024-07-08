@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:namer_app/app_state.dart';
-import 'package:provider/provider.dart';
 
-class FavouritesPage extends StatelessWidget {
+class FavouritesPage extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
+  Widget build(BuildContext context, WidgetRef ref) {
+    var favorites = ref.watch(favoritesProvider);
 
-    if (appState.favorites.isEmpty) {
+    if (favorites.isEmpty) {
       return Center(
         child: Text('No favorites yet.'),
       );
@@ -18,9 +18,9 @@ class FavouritesPage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(20),
           child: Text('You have '
-              '${appState.favorites.length} favorites:'),
+              '${favorites.length} favorites:'),
         ),
-        for (var pair in appState.favorites)
+        for (var pair in favorites)
           ListTile(leading: Icon(Icons.favorite), title: Text(pair.asLowerCase))
       ],
     );

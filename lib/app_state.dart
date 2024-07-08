@@ -1,22 +1,31 @@
 import 'package:english_words/english_words.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class MyAppState extends ChangeNotifier {
+part 'app_state.g.dart';
+
+@riverpod
+class PairGenerator extends _$PairGenerator {
   var current = WordPair.random();
 
+  @override
+  WordPair build() => WordPair.random();
+
   void getNext() {
-    current = WordPair.random();
-    notifyListeners();
+    state = WordPair.random();
   }
+}
 
-  var favorites = <WordPair>[];
+@riverpod
+class Favorites extends _$Favorites {
+  @override
+  List<WordPair> build() => [];
 
-  void toggleFavorite() {
-    if (favorites.contains(current)) {
-      favorites.remove(current);
+  void toggleFavorite(WordPair word) {
+    if (state.contains(word)) {
+      state.remove(word);
     } else {
-      favorites.add(current);
+      state.add(word);
     }
-    notifyListeners();
+    state = [...state];
   }
 }
