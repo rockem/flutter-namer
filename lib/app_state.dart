@@ -1,24 +1,26 @@
 import 'package:english_words/english_words.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-part 'app_state.g.dart';
+final pairGeneratorProvider =
+    StateNotifierProvider<PairGeneratorNotifier, WordPair>((ref) {
+  return PairGeneratorNotifier();
+});
 
-@riverpod
-class PairGenerator extends _$PairGenerator {
-  var current = WordPair.random();
-
-  @override
-  WordPair build() => WordPair.random();
+class PairGeneratorNotifier extends StateNotifier<WordPair> {
+  PairGeneratorNotifier() : super(WordPair.random());
 
   void getNext() {
     state = WordPair.random();
   }
 }
 
-@riverpod
-class Favorites extends _$Favorites {
-  @override
-  List<WordPair> build() => [];
+final favoritesProvider =
+    StateNotifierProvider<FavoritesNotifier, List<WordPair>>((ref) {
+  return FavoritesNotifier();
+});
+
+class FavoritesNotifier extends StateNotifier<List<WordPair>> {
+  FavoritesNotifier() : super([]);
 
   void toggleFavorite(WordPair word) {
     if (state.contains(word)) {
