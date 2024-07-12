@@ -6,13 +6,15 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:namer_app/generator.dart';
 
 void main() {
   testWidgets('Generate random word', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(GeneratorPage());
+    await tester
+        .pumpWidget(ProviderScope(child: MaterialApp(home: GeneratorPage())));
 
     // Verify that our counter starts at 0.
     var pairWidget =

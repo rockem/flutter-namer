@@ -1,17 +1,17 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app_state.dart';
 
-class GeneratorPage extends StatelessWidget {
+class GeneratorPage extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    var pair = appState.current;
+  Widget build(BuildContext context, WidgetRef ref) {
+    var favorites = ref.watch(favoritesProvider);
+    var pair = ref.watch(pairGeneratorProvider);
 
     IconData icon;
-    if (appState.favorites.contains(pair)) {
+    if (favorites.contains(pair)) {
       icon = Icons.favorite;
     } else {
       icon = Icons.favorite_border;
@@ -28,7 +28,7 @@ class GeneratorPage extends StatelessWidget {
             children: [
               ElevatedButton.icon(
                 onPressed: () {
-                  appState.toggleFavorite();
+                  ref.read(favoritesProvider.notifier).toggleFavorite(pair);
                 },
                 icon: Icon(icon),
                 label: Text('Like'),
@@ -36,7 +36,7 @@ class GeneratorPage extends StatelessWidget {
               SizedBox(width: 10),
               ElevatedButton(
                 onPressed: () {
-                  appState.getNext();
+                  ref.read(pairGeneratorProvider.notifier).getNext();
                 },
                 child: Text('Next'),
               ),

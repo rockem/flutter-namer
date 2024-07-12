@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:namer_app/generator.dart';
-import 'package:provider/provider.dart';
 
-import 'app_state.dart';
 import 'favourites.dart';
 
 class MyApp extends StatelessWidget {
@@ -10,16 +8,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => MyAppState(),
-      child: MaterialApp(
-        title: 'Namer App',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.redAccent),
-        ),
-        home: MyHomePage(),
+    return MaterialApp(
+      title: 'Namer App',
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.redAccent),
       ),
+      home: MyHomePage(),
     );
   }
 }
